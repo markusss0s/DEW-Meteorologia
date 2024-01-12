@@ -1,7 +1,7 @@
 const select = document.getElementById("provincias");
 
 function loadProvinces() {
-  fetch("json/provincias.json")
+  fetch("https://www.el-tiempo.net/api/json/v2/provincias")
     .then((res) => res.json())
     .then((json) => {
       json.provincias.forEach((provincia) => {
@@ -13,28 +13,13 @@ function loadProvinces() {
     });
 }
 
-// function tomoTod(day, div) {
-//   fetch("json/home.json")
-//   .then((res) => res.json())
-//   .then((json) => {
-//     console.log(json);
-//     json.day.p.forEach((p) => {
-//       const pDay = document.createElement("p");
-//       pDay.append(p);
-//       div.append(pDay);
-//     });
-//   });
-// }
-
 function home() {
-  fetch("json/home.json")
+  fetch("https://www.el-tiempo.net/api/json/v2/home")
     .then((res) => res.json())
     .then((json) => {
       console.log(json.tomorrow.p);
       const todayDiv = document.getElementById("today");
       const tomorrowDiv = document.getElementById("tomorrow");
-      // tomoTod(today, todayDiv);
-      // tomoTod(tomorrow);
       json.today.p.forEach((p) => {
         const p2 = document.createElement("p");
         p2.append(p);
@@ -47,6 +32,12 @@ function home() {
       });
     });
 }
+// function timeProvince() {
+//   const
+//   fetch();
+// }
+const option = document.getElementById("provincias");
+console.log(option);
 // const home = document.getElementById('home');
 home();
 loadProvinces();
