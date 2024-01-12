@@ -3,13 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Metereología</title>
+    <style>
+      h3 {
+        font-size: 20px;
+      }
+      #today,
+      #tomorrow {
+        font-size: 13px;
+      }
+    </style>
   </head>
   <body>
     <h1>Metereología</h1>
-    <form action="">
-      <select name="" id="provincias"></select>
-      <h1>El Tiempo</h1>
-    </form>
+    <p>
+      <select name="" id="provincias">
+        <option disabled selected>Selecciona una provincia</option>
+      </select>
+      <select name="" id="municipios">
+        <option disabled selected>Selecciona un municipio</option>
+      </select>
+    </p>
+    <h1>El Tiempo</h1>
+    <div id="home">
+      <div id="today">
+        <h3>Previsión para hoy</h3>
+      </div>
+
+      <div id="tomorrow">
+        <h3>Previsión para mañana</h3>
+      </div>
+    </div>
+    <script src="index.js"></script>
   </body>
 </html>
