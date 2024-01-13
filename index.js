@@ -94,8 +94,8 @@ function loadWeatherTown() {
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
-      const p = document.createElement("p");
-      p.textContent =
+      const todayP = document.createElement("p");
+      todayP.textContent =
         json.stateSky.description +
         " " +
         json.temperatura_actual +
@@ -103,11 +103,22 @@ function loadWeatherTown() {
         "(max: " +
         json.temperaturas.max +
         " | " +
-        " min:" +
+        " min: " +
         json.temperaturas.min +
         ")";
       console.log(json.temperaturas.min);
-      todayDiv.append(p);
+      todayDiv.append(todayP);
+      const tomorrowP = document.createElement("p");
+      tomorrowP.textContent =
+      json.proximos_dias[0].estado_cielo_descripcion[0] +
+      " " +
+      "(max: " +
+      json.proximos_dias[0].temperatura.maxima +
+      " | " +
+      " min: " +
+      json.proximos_dias[0].temperatura.minima +
+      ")";
+      tomorrowDiv.append(tomorrowP);
     });
 }
 
