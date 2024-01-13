@@ -96,7 +96,17 @@ function loadWeatherTown() {
       console.log(json);
       const p = document.createElement("p");
       p.textContent =
-        json.stateSky.description + " " + json.temperatura_actual + "ºC";
+        json.stateSky.description +
+        " " +
+        json.temperatura_actual +
+        "ºC " +
+        "(max: " +
+        json.temperaturas.max +
+        " | " +
+        " min:" +
+        json.temperaturas.min +
+        ")";
+      console.log(json.temperaturas.min);
       todayDiv.append(p);
     });
 }
