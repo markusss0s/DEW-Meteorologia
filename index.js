@@ -4,10 +4,6 @@ const todayDiv = document.getElementById("today");
 const tomorrowDiv = document.getElementById("tomorrow");
 const site = document.getElementById("site");
 let CODPROV;
-//DETALLES DE MOSTRAR LA PROVINCIA Y MUNICIPIO LA CUAL VAMOS A MIRAR EL TIEMPO
-//DETALLES DE MOSTRAR LA PROVINCIA Y MUNICIPIO LA CUAL VAMOS A MIRAR EL TIEMPO
-//DETALLES DE MOSTRAR LA PROVINCIA Y MUNICIPIO LA CUAL VAMOS A MIRAR EL TIEMPO
-//DETALLES DE MOSTRAR LA PROVINCIA Y MUNICIPIO LA CUAL VAMOS A MIRAR EL TIEMPO
 function loadProvinces() {
   fetch("https://www.el-tiempo.net/api/json/v2/provincias")
     .then((res) => res.json())
@@ -33,7 +29,6 @@ function home() {
         p2.append(p);
         todayDiv.append(p2);
       });
-
       json.tomorrow.p.forEach((p) => {
         const p2 = document.createElement("p");
         p2.append(p);
@@ -41,7 +36,6 @@ function home() {
       });
     });
 }
-
 function loadWeatherProvince() {
   let index = selectProvince.selectedIndex;
   CODPROV = selectProvince.options[index].value;
@@ -50,7 +44,6 @@ function loadWeatherProvince() {
   fetch("https://www.el-tiempo.net/api/json/v2/provincias/" + CODPROV)
     .then((res) => res.json())
     .then((json1) => {
-      console.log(json1);
       let todayP = document.createElement("p");
       let tomorrowP = document.createElement("p");
       todayP.textContent = json1.today.p;
@@ -59,12 +52,11 @@ function loadWeatherProvince() {
       tomorrowDiv.append(tomorrowP);
       fetch(
         "https://www.el-tiempo.net/api/json/v2/provincias/" +
-          CODPROV +
-          "/municipios"
+        CODPROV +
+        "/municipios"
       )
         .then((res) => res.json())
         .then((json2) => {
-          console.log("JSON2: ", json2);
           const option = document.createElement("option");
           option.disabled = true;
           option.selected = true;
@@ -84,40 +76,23 @@ function loadWeatherProvince() {
 function loadWeatherTown() {
   let index = selectTown.selectedIndex;
   let COD_GEO = selectTown.options[index].value;
-  let PROVINCE = selectTown.options[index].text;
+  let TOWN = selectTown.options[index].text;
+  site.textContent = TOWN;
   fetch(
     "https://www.el-tiempo.net/api/json/v2/provincias/" +
-      CODPROV +
-      "/municipios/" +
-      COD_GEO
+    CODPROV +
+    "/municipios/" +
+    COD_GEO
   )
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
       const todayP = document.createElement("p");
-      todayP.textContent =
-        json.stateSky.description +
-        " " +
-        json.temperatura_actual +
-        "ºC " +
-        "(max: " +
-        json.temperaturas.max +
-        " | " +
-        " min: " +
-        json.temperaturas.min +
-        ")";
-      console.log(json.temperaturas.min);
+      todayP.textContent = `${json.stateSky.description} ${json.temperatura_actual} ºC 
+      (max: ${json.temperaturas.max} ºC | min: ${json.temperaturas.min} ºC)`;
       todayDiv.append(todayP);
       const tomorrowP = document.createElement("p");
-      tomorrowP.textContent =
-      json.proximos_dias[0].estado_cielo_descripcion[0] +
-      " " +
-      "(max: " +
-      json.proximos_dias[0].temperatura.maxima +
-      " | " +
-      " min: " +
-      json.proximos_dias[0].temperatura.minima +
-      ")";
+      tomorrowP.textContent = `${json.proximos_dias[0].estado_cielo_descripcion[0]} 
+      (max: ${json.proximos_dias[0].temperatura.maxima} ºC | min: ${json.proximos_dias[0].temperatura.minima} ºC)`
       tomorrowDiv.append(tomorrowP);
     });
 }
@@ -139,6 +114,7 @@ selectTown.addEventListener("change", () => {
   } else {
     todayDiv.innerHTML = "";
     tomorrowDiv.innerHTML = "";
+
   }
 });
 window.onload = home;
