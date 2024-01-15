@@ -57,6 +57,7 @@ function loadWeatherProvince() {
       )
         .then((res) => res.json())
         .then((json2) => {
+          console.log(json2);
           const option = document.createElement("option");
           option.disabled = true;
           option.selected = true;
@@ -65,8 +66,8 @@ function loadWeatherProvince() {
           json2.municipios.forEach((town) => {
             const option = document.createElement("option");
             option.textContent = town.NOMBRE;
-            option.value = town.COD_GEO;
-
+            option.value = town.CODIGOINE.substr(0, 5);
+            console.log(town.CODIGOINE);
             selectTown.append(option);
           });
         });
@@ -75,17 +76,18 @@ function loadWeatherProvince() {
 
 function loadWeatherTown() {
   let index = selectTown.selectedIndex;
-  let COD_GEO = selectTown.options[index].value;
+  let CODIGOINE = selectTown.options[index].value;
   let TOWN = selectTown.options[index].text;
   site.textContent = TOWN;
   fetch(
     "https://www.el-tiempo.net/api/json/v2/provincias/" +
     CODPROV +
     "/municipios/" +
-    COD_GEO
+    CODIGOINE
   )
     .then((res) => res.json())
     .then((json) => {
+      console.log(json);
       const todayP = document.createElement("p");
       todayP.textContent = `${json.stateSky.description} ${json.temperatura_actual} ºC 
       (max: ${json.temperaturas.max} ºC | min: ${json.temperaturas.min} ºC)`;
